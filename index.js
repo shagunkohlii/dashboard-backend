@@ -1,4 +1,3 @@
-// require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -6,15 +5,13 @@ const mongoConnect = require("./db")
 const dataRoute = require("./Routes/data")
 
 mongoConnect()
-// const dataRoute = require("./routes/Data");
-// const { connectMongoDb } = require("./config/MongoDb");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// connectMongoDb(process.env.MONGO_URL);
+
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: ['http://localhost:3000', 'https://shagunkohlii-dashboard.vercel.app'], methods: ["GET", "POST", "DELETE", "PUT"], credentials: true }));
 
 app.use("/api", dataRoute);
 
